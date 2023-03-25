@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"types.h": "c",
+			"timer.h": "c",
+			"kernel.h": "c",
+			"timex.h": "c",
+			"semaphore.h": "c"
+		}
+	}
+}

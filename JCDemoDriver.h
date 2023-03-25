@@ -2,6 +2,9 @@
 #define JCDEMODRIVER_H
 
 #include <QWidget>
+#include <QLabel>
+
+#include "PanelDriver.h"
 
 class JCDemoDriver : public QWidget
 {
@@ -11,10 +14,11 @@ public:
     ~JCDemoDriver();
 
 private:
-    void initDriver();
-    QString shell(const QString &cmd);
+    QLabel *label = nullptr;
+    void setupUi();
 
 private:
+    PanelDriver *panelDriver = nullptr;
     int mTimerId = 0;
 protected:
     virtual void timerEvent(QTimerEvent *event);

@@ -12,9 +12,6 @@
 #include <sys/unistd.h>
 #include <sys/socket.h>
 
-// Drv Includes
-#include "jcmpanel.h"
-
 static int setup_unix_signal_handlers()
 {
     struct sigaction sa;
@@ -33,14 +30,13 @@ static int setup_unix_signal_handlers()
 PanelDriver::PanelDriver(QObject *parent) : QObject(parent)
 {
     // 1. file descriptor
-    mFileDesc = ::open("/dev/jcmpanel", O_RDWR);
+    mFileDesc = ::open("/dev/demo", O_RDWR);
     if (mFileDesc < 0) {
         qDebug() << __PRETTY_FUNCTION__ << __LINE__;
     }
 
     // 2. signal number
-    ::ioctl(mFileDesc, JCMPANEL_IOR_SIGNUM, &mSignum);
-    qDebug() << __FUNCTION__ << mSignum;
+    mSignum = SIGIO;
 
     // 3. fcntl
     int flags = ::fcntl(mFileDesc, F_GETFL);

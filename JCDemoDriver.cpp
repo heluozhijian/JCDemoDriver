@@ -22,8 +22,11 @@
 
 JCDemoDriver::JCDemoDriver(QWidget *parent) : QWidget(parent)
 {
+    resize(480, 320);
+    setupUi();
+    panelDriver = new PanelDriver(this);
     mTimerId = startTimer(100);
-    initDriver();
+
 }
 
 JCDemoDriver::~JCDemoDriver()
@@ -32,34 +35,30 @@ JCDemoDriver::~JCDemoDriver()
     mTimerId = 0;
 }
 
-void JCDemoDriver::initDriver()
+void JCDemoDriver::setupUi()
 {
-    shell("depmod");
-    shell("rmmod jcmpanel.ko");
-    shell("modprobe jcmpanel.ko signum=37");
+    label = new QLabel(this);
+    QFont font = label->font();
+    font.setPixelSize(30);
+    label->setFont(font);
 
-    PanelDriver *panelDriver = new PanelDriver(this);
-}
-
-QString JCDemoDriver::shell(const QString &cmd)
-{
-    QProcess process;
-    process.start(cmd);
-    process.waitForFinished();
-    QString str = process.readAllStandardOutput();
-    process.close();
-    return str;
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->addWidget(label, 1, Qt::AlignCenter);
 }
 
 void JCDemoDriver::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() != mTimerId) {
         qDebug() << __FUNCTION__ << __LINE__;
+        QWidget::timerEvent(event);
         return;
     }
-#if 1
+
     static int cnt = 0;
+#if 0
     qDebug() << __FUNCTION__ << cnt++;
+#else
+    label->setText(QString::number(cnt++));
 #endif
     QThread::msleep(100); // causes the application blocking
 }
