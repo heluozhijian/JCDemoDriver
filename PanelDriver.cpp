@@ -40,6 +40,7 @@ PanelDriver::PanelDriver(QObject *parent) : QObject(parent)
 
     // 2. signal number
     ::ioctl(mFileDesc, JCMPANEL_IOR_SIGNUM, &mSignum);
+    qDebug() << __FUNCTION__ << mSignum;
 
     // 3. fcntl
     int flags = ::fcntl(mFileDesc, F_GETFL);
@@ -70,16 +71,21 @@ void PanelDriver::unixSignalHandler(int)
 
 void PanelDriver::qtSignalHandler()
 {
+    qDebug() << __FUNCTION__ << 0;
+
     mSocketNotifier->setEnabled(false);
     char tmp;
     ::read(mSocketFd[1], &tmp, sizeof(tmp));
+    qDebug() << __FUNCTION__ << 1;
 
     // do Qt stuff
-    static int cnt = 0;
-    qDebug() << __FUNCTION__ << cnt++;
+//    static int cnt = 0;
+//    qDebug() << __FUNCTION__ << cnt++;
     emit panelChanged();
+    qDebug() << __FUNCTION__ << 2;
 
     mSocketNotifier->setEnabled(true);
+    qDebug() << __FUNCTION__ << 3;
 }
 
 

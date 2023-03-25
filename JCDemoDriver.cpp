@@ -6,6 +6,7 @@
 #include <QProcess>
 #include <QKeyEvent>
 #include <QLayout>
+#include <QThread>
 
 // Sys Includes
 #include <sys/types.h>
@@ -17,23 +18,18 @@
 #include <sys/socket.h>
 
 // Pro Includes
-#include "JOscilloscopeView.h"
 #include "PanelDriver.h"
 
 JCDemoDriver::JCDemoDriver(QWidget *parent) : QWidget(parent)
 {
-    setupUi();
+    mTimerId = startTimer(100);
     initDriver();
 }
 
-void JCDemoDriver::setupUi()
+JCDemoDriver::~JCDemoDriver()
 {
-    JOscilloscopeView *view = new JOscilloscopeView(this);
-
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->setSpacing(5);
-    mainLayout->setContentsMargins(10, 10, 10, 10); // left top right bottom
-    mainLayout->addWidget(view);
+    killTimer(mTimerId);
+    mTimerId = 0;
 }
 
 void JCDemoDriver::initDriver()
@@ -53,6 +49,19 @@ QString JCDemoDriver::shell(const QString &cmd)
     QString str = process.readAllStandardOutput();
     process.close();
     return str;
+}
+
+void JCDemoDriver::timerEvent(QTimerEvent *event)
+{
+    if (event->timerId() != mTimerId) {
+        qDebug() << __FUNCTION__ << __LINE__;
+        return;
+    }
+#if 1
+    static int = 0;
+    qDebug() << __FUNCTION__ << cnt++;
+#endif
+    QThread::msleep(100);
 }
 
 

@@ -24,8 +24,6 @@ HEADERS += \
 
 SOURCES += $$PWD/PanelDriver.cpp
 HEADERS += $$PWD/PanelDriver.h
-SOURCES += $$PWD/JOscilloscopeView.cpp
-HEADERS += $$PWD/JOscilloscopeView.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
