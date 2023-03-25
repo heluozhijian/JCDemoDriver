@@ -58,10 +58,10 @@ void JCDemoDriver::timerEvent(QTimerEvent *event)
         return;
     }
 #if 1
-    static int = 0;
+    static int cnt = 0;
     qDebug() << __FUNCTION__ << cnt++;
 #endif
-    QThread::msleep(100);
+    QThread::msleep(100); // causes the application blocking
 }
 
 
