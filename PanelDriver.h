@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QSocketNotifier>
+#include <QMutex>
 
 /*!
  * @brief PanelDriver
@@ -30,7 +31,8 @@ public slots:
 
 private:
     static int mSocketFd[2];
-    QSocketNotifier *mSocketNotifier;
+    static int mBufferCounter;
+    static QSocketNotifier *mSocketNotifier;
 
 signals:
     void panelChanged();

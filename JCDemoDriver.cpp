@@ -7,6 +7,7 @@
 #include <QKeyEvent>
 #include <QLayout>
 #include <QThread>
+#include <QTime>
 
 // Sys Includes
 #include <sys/types.h>
@@ -24,7 +25,9 @@ JCDemoDriver::JCDemoDriver(QWidget *parent) : QWidget(parent)
 {
     resize(480, 320);
     setupUi();
+#if 1
     panelDriver = new PanelDriver(this);
+#endif
     mTimerId = startTimer(100);
 
 }
@@ -60,7 +63,14 @@ void JCDemoDriver::timerEvent(QTimerEvent *event)
 #else
     label->setText(QString::number(cnt++));
 #endif
-    QThread::msleep(100); // causes the application blocking
+    int ms = 0;
+    do {
+        QThread::msleep(1);
+        QCoreApplication::processEvents();
+        if (ms % 10 == 0)
+            qDebug() << __FUNCTION__ << ms;
+    } while ((ms++) < 100);
+    qDebug() << __FUNCTION__ << QTime::currentTime();
 }
 
 
