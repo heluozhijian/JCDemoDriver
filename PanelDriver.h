@@ -26,17 +26,6 @@ public:
 public:
     // Unix signal handlers.
     static void unixSignalHandler(int unused);
-public slots:
-    // Qt signal handlers.
-    void qtSignalHandler();
-
-private:
-    static int mSocketFd[2];
-    static int mBufferCounter;
-    static QSocketNotifier *mSocketNotifier;
-
-signals:
-    void panelChanged();
 };
 
 #endif // PANELDRIVER_H
