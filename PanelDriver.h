@@ -15,6 +15,7 @@ class PanelDriver: public QObject
     Q_OBJECT
 public:
     PanelDriver(QObject *parent = nullptr);
+    ~PanelDriver();
 
 public:
     // file descriptor

@@ -16,6 +16,8 @@
 #include <sys/file.h>
 #include <stdio.h>
 
+uint qGlobalPostedEventsCount();
+
 static int setup_unix_signal_handlers()
 {
     struct sigaction sa;
@@ -57,15 +59,11 @@ PanelDriver::PanelDriver(QObject *parent) : QObject(parent)
 
     // 5. setup unix signal handlers
     setup_unix_signal_handlers();
+}
 
-#if 0
-    int cnt = 0;
-    while (true) {
-        char a = 1;
-        ::write(mSocketFd[0], &a, sizeof(a));
-        qDebug() << __FUNCTION__ << cnt++;
-    }
-#endif
+PanelDriver::~PanelDriver()
+{
+
 }
 
 int PanelDriver::mFileDesc = 0;
@@ -101,3 +99,4 @@ void PanelDriver::qtSignalHandler()
 
     mSocketNotifier->setEnabled(true);
 }
+

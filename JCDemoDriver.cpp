@@ -69,7 +69,7 @@ void JCDemoDriver::timerEvent(QTimerEvent *event)
         QCoreApplication::processEvents();
         if (ms % 10 == 0)
             qDebug() << __FUNCTION__ << ms;
-    } while ((ms++) < 100);
+    } while ((ms++) < 200);
     qDebug() << __FUNCTION__ << QTime::currentTime();
 }
 
