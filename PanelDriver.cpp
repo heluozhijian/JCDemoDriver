@@ -61,9 +61,12 @@ PanelDriver::~PanelDriver()
 
 int PanelDriver::mFileDesc = 0;
 int PanelDriver::mSignum = 0;
+QMutex PanelDriver::mMutex;
+int PanelDriver::cnt = 0;
 
 void PanelDriver::unixSignalHandler(int)
 {
-    static int cnt = 0;
-    qDebug() << __FUNCTION__ << cnt++;
+    QMutexLocker locker(&mMutex);
+    cnt++;
+//    qDebug() << __FUNCTION__ << cnt++;
 }

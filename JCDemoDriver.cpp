@@ -38,6 +38,8 @@ JCDemoDriver::~JCDemoDriver()
     mTimerId = 0;
 }
 
+//int JCDemoDriver::cnt = 0;
+
 void JCDemoDriver::setupUi()
 {
     label = new QLabel(this);
@@ -63,6 +65,8 @@ void JCDemoDriver::timerEvent(QTimerEvent *event)
 #else
     label->setText(QString::number(cnt++));
 #endif
+
+#if 1
     int ms = 0;
     do {
         QThread::msleep(1);
@@ -70,6 +74,10 @@ void JCDemoDriver::timerEvent(QTimerEvent *event)
         if (ms % 10 == 0)
             qDebug() << __FUNCTION__ << ms;
     } while ((ms++) < 200);
+#else
+    QThread::msleep(200);
+#endif
+
     qDebug() << __FUNCTION__ << QTime::currentTime();
 }
 

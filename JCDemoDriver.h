@@ -20,6 +20,7 @@ private:
 private:
     PanelDriver *panelDriver = nullptr;
     int mTimerId = 0;
+//    static int cnt;
 protected:
     virtual void timerEvent(QTimerEvent *event);
 };

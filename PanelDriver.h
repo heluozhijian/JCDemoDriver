@@ -22,6 +22,10 @@ public:
     static int mFileDesc;
     // signal number
     static int mSignum;
+    // mutex
+    static QMutex mMutex;
+    // counter
+    static int cnt;
 
 public:
     // Unix signal handlers.
