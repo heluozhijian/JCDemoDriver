@@ -20,7 +20,6 @@ private:
 private:
     ThreadPoolTest *threadPoolTest = nullptr;
     int mTimerId = 0;
-//    static int cnt;
 protected:
     virtual void timerEvent(QTimerEvent *event);
 };

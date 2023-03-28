@@ -8,11 +8,6 @@
 // Pro Includes
 #include "PanelDriver.h"
 
-/*!
- * @brief 构造函数
- * @details
- * @note 主线程
- */
 ThreadPoolTest::ThreadPoolTest(QObject *parent) : QObject(parent)
 {
 #if 0
@@ -23,11 +18,6 @@ ThreadPoolTest::ThreadPoolTest(QObject *parent) : QObject(parent)
     mTimerId = startTimer(1000);
 }
 
-/*!
- * @brief 析构函数
- * @details
- * @note 子线程
- */
 ThreadPoolTest::~ThreadPoolTest()
 {
 #if 0
@@ -38,11 +28,6 @@ ThreadPoolTest::~ThreadPoolTest()
     mTimerId = 0;
 }
 
-/*!
- * @brief 主循环
- * @details
- * @note 子线程
- */
 void ThreadPoolTest::run()
 {
 #if 0
@@ -55,12 +40,6 @@ void ThreadPoolTest::run()
     eventLoop.exec();
 }
 
-
-/*!
- * @brief 定时器事件
- * @details
- * @note
- */
 void ThreadPoolTest::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() != mTimerId) {
