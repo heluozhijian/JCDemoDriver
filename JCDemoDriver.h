@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 
-#include "PanelDriver.h"
+#include "ThreadPoolTest.h"
 
 class JCDemoDriver : public QWidget
 {
@@ -18,7 +18,7 @@ private:
     void setupUi();
 
 private:
-    PanelDriver *panelDriver = nullptr;
+    ThreadPoolTest *threadPoolTest = nullptr;
     int mTimerId = 0;
 //    static int cnt;
 protected:

@@ -25,6 +25,12 @@ HEADERS += \
 SOURCES += $$PWD/PanelDriver.cpp
 HEADERS += $$PWD/PanelDriver.h
 
+SOURCES += $$PWD/JUnixDriver.cpp
+HEADERS += $$PWD/JUnixDriver.h
+
+SOURCES += $$PWD/ThreadPoolTest.cpp
+HEADERS += $$PWD/ThreadPoolTest.h
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

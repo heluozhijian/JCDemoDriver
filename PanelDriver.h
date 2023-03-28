@@ -4,32 +4,25 @@
 #include <QObject>
 #include <QSocketNotifier>
 #include <QMutex>
+#include <QRunnable>
 
+#include "JUnixDriver.h"
 /*!
  * @brief PanelDriver
  * @details
  * @note
  */
-class PanelDriver: public QObject
+class PanelDriver: public JUnixDriver
 {
     Q_OBJECT
 public:
     PanelDriver(QObject *parent = nullptr);
     ~PanelDriver();
 
-public:
-    // file descriptor
-    static int mFileDesc;
-    // signal number
-    static int mSignum;
-    // mutex
-    static QMutex mMutex;
-    // counter
-    static int cnt;
-
-public:
-    // Unix signal handlers.
-    static void unixSignalHandler(int unused);
+private:
+    void signalHandler() override;              //!< 信号处理程序
+signals:
+    void signalHandler(int signum);
 };
 
 #endif // PANELDRIVER_H

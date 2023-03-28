@@ -8,6 +8,7 @@
 #include <QLayout>
 #include <QThread>
 #include <QTime>
+#include <QThreadPool>
 
 // Sys Includes
 #include <sys/types.h>
@@ -25,11 +26,16 @@ JCDemoDriver::JCDemoDriver(QWidget *parent) : QWidget(parent)
 {
     resize(480, 320);
     setupUi();
-#if 1
-    panelDriver = new PanelDriver(this);
+#if 0
+    // main thread
+    PanelDriver *panelDriver = new PanelDriver(this);
+#else
+    // sub thread
+    threadPoolTest = new ThreadPoolTest(nullptr);
+    QThreadPool::globalInstance()->setMaxThreadCount(2);
+    QThreadPool::globalInstance()->start(threadPoolTest);
 #endif
     mTimerId = startTimer(100);
-
 }
 
 JCDemoDriver::~JCDemoDriver()
@@ -66,12 +72,12 @@ void JCDemoDriver::timerEvent(QTimerEvent *event)
     label->setText(QString::number(cnt++));
 #endif
 
-#if 1
+#if 0
     int ms = 0;
     do {
         QThread::msleep(1);
         QCoreApplication::processEvents();
-        if (ms % 10 == 0)
+        if (ms % 20 == 0)
             qDebug() << __FUNCTION__ << ms;
     } while ((ms++) < 200);
 #else
